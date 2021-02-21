@@ -106,7 +106,11 @@ const CrearCuenta = () => {
             </Item>
           </Form>
 
-          <Button onPress={handleSubmit} style={globals.button} block square>
+          <Button
+            onPress={handleSubmit}
+            style={globals.primaryButton}
+            block
+            square>
             <Text style={globals.buttonText}>Create</Text>
           </Button>
 

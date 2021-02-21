@@ -13,8 +13,10 @@ import {
 } from 'native-base';
 import {globals} from '../styles/globals';
 import {gql, useMutation} from '@apollo/client';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Login = () => {
+  const TOKEN_KEY = 'token';
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,15 +32,29 @@ const Login = () => {
 
   const [authUser] = useMutation(AUTH_USER);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!email || email === '' || !password || password === '') {
       setToastMessage('All fields are required');
       return;
     }
 
     try {
+      const {data} = await authUser({
+        variables: {
+          input: {
+            email,
+            password,
+          },
+        },
+      });
+
+      const {token} = data.authUser;
+
+      await AsyncStorage.setItem(TOKEN_KEY, token);
+
+      navigation.navigate('Projects');
     } catch (error) {
-      setToastMessage(error.message.replace('GraphQL Error: ', ''));
+      setToastMessage(error.message);
     }
   };
 
@@ -75,7 +91,7 @@ const Login = () => {
 
           <Button
             onPress={() => handleSubmit()}
-            style={globals.button}
+            style={globals.primaryButton}
             block
             square>
             <Text style={globals.buttonText}>Login</Text>

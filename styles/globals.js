@@ -4,7 +4,6 @@ export const globals = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   content: {
     flex: 1,
     flexDirection: 'column',
@@ -22,7 +21,7 @@ export const globals = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 20,
   },
-  button: {
+  primaryButton: {
     backgroundColor: '#28303b',
   },
   buttonText: {
@@ -37,5 +36,12 @@ export const globals = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     textTransform: 'uppercase',
+  },
+  subtitle: {
+    textAlign: 'center',
+    marginVertical: 20,
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#fff',
   },
 });
